@@ -2,6 +2,8 @@
   "http_address": "127.0.0.1",
   "port": "8080",
 
+  "root_download_path": "storage/images",
+  "user_content_upload_path": "storage/images/user-content",
 
   "db_schema": "postgres",
   "db_username": "admin",
