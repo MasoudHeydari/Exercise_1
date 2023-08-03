@@ -18,6 +18,7 @@ type Config struct {
 	DbSslMode             string `json:"db_ssl_mode"`
 	RootDownloadPath      string `json:"root_download_path"`
 	UserContentUploadPath string `json:"user_content_upload_path"`
+	UrlsPath              string `json:"urls_path"`
 }
 
 func Load(confPath string) (Config, error) {
@@ -31,5 +32,5 @@ func Load(confPath string) (Config, error) {
 	if err != nil {
 		return Config{}, err
 	}
-	return Config{}, nil
+	return *conf, nil
 }
