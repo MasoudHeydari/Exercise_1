@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/cmd"
+)
 
 func main() {
-	fmt.Println("Start implementing Imagy")
+	cmd.Exec()
 }
