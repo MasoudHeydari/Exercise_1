@@ -1,3 +1,4 @@
 .idea
 /problem_statments
-storage
+Task2_imagy/storage
+Task2_imagy/adapter/store/postgres/volume
