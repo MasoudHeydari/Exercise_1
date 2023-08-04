@@ -38,7 +38,7 @@ func (i *Interactor) List(ctx context.Context, req dto.ListImageRequest) (dto.Li
 	}, nil
 }
 
-func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageFromURLRequest) (dto.DownloadImageFromURLResponse, error) {
+func (i *Interactor) DownloadFromURL(ctx context.Context, req dto.DownloadImageFromURLRequest) (dto.DownloadImageFromURLResponse, error) {
 	res, err := http.Get(req.URLPath)
 	if err != nil {
 		return dto.DownloadImageFromURLResponse{}, err

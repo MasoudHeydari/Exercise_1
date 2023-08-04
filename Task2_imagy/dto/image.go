@@ -17,3 +17,9 @@ type ListImageRequest struct{}
 type ListImageResponse struct {
 	Images []domain.Image
 }
+
+type DownloadImageRequest struct {
+	ImageName string
+}
+
+type DownloadImageResponse struct{}

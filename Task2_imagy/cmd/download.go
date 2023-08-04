@@ -43,7 +43,7 @@ func download() {
 			LocalName: generateImageName(i),
 			DstPath:   imagyConfig.RootDownloadPath,
 		}
-		res, err := img.Download(context.Background(), req)
+		res, err := img.DownloadFromURL(context.Background(), req)
 		if err != nil {
 			log.Printf("failed to downlaod image from '%s' url - error: %v\n", u, err)
 		}
