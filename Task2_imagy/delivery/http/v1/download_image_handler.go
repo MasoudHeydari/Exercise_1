@@ -14,7 +14,7 @@ import (
 )
 
 type DownloadImagePayload struct {
-	ImageName string `json:"image_name"`
+	ImageName string `param:"image_name"`
 }
 
 func (p *DownloadImagePayload) toDtoDownloadImageRequest() dto.DownloadImageRequest {
