@@ -29,3 +29,23 @@ func (i *Interactor) Create(ctx context.Context, image model.Image) error {
 	}
 	return nil
 }
+
+func (i *Interactor) List(ctx context.Context) ([]model.Image, error) {
+	entImages, err := i.db.Client.Image.Query().All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	modelImages := make([]model.Image, 0)
+	for _, entImg := range entImages {
+		modelImg := model.Image{
+			ID:            entImg.ID,
+			OriginalURL:   entImg.OriginalURL,
+			LocalName:     entImg.LocalName,
+			FileExtension: entImg.FileExtension,
+			FileSize:      entImg.FileSize,
+			DownloadDate:  entImg.DownloadDate,
+		}
+		modelImages = append(modelImages, modelImg)
+	}
+	return modelImages, nil
+}

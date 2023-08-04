@@ -11,6 +11,7 @@ import (
 
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/adapter/store/model"
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/contract"
+	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/domain"
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/dto"
 )
 
@@ -24,6 +25,17 @@ func New(db contract.ImageStoreInteractor) contract.ImageInteractor {
 	return &Interactor{
 		db: db,
 	}
+}
+
+func (i *Interactor) List(ctx context.Context, req dto.ListImageRequest) (dto.ListImageResponse, error) {
+	modelImages, err := i.db.List(ctx)
+	if err != nil {
+		return dto.ListImageResponse{}, err
+	}
+
+	return dto.ListImageResponse{
+		Images: convertModelImagesToDomainImages(modelImages),
+	}, nil
 }
 
 func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageRequest) (dto.DownloadImageResponse, error) {
@@ -82,4 +94,12 @@ func extractFileExtension(s string) (string, error) {
 		return "", fmt.Errorf("failed to extraxt file extension")
 	}
 	return i[1], nil
+}
+
+func convertModelImagesToDomainImages(modelImages []model.Image) []domain.Image {
+	domainImages := make([]domain.Image, 0)
+	for _, modelImage := range modelImages {
+		domainImages = append(domainImages, modelImage.ToDomainImage())
+	}
+	return domainImages
 }
