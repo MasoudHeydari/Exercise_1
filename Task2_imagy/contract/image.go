@@ -8,5 +8,6 @@ import (
 
 type ImageInteractor interface {
 	DownloadFromURL(ctx context.Context, req dto.DownloadImageFromURLRequest) (dto.DownloadImageFromURLResponse, error)
+	Download(ctx context.Context, req dto.DownloadImageRequest) (dto.DownloadImageResponse, error)
 	List(ctx context.Context, req dto.ListImageRequest) (dto.ListImageResponse, error)
 }

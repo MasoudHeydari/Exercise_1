@@ -18,17 +18,33 @@ import (
 var _ contract.ImageInteractor = &Interactor{}
 
 type Interactor struct {
-	db contract.ImageStoreInteractor
+	imageStoreInteractor contract.ImageStoreInteractor
 }
 
-func New(db contract.ImageStoreInteractor) contract.ImageInteractor {
+func New(imageStoreInteractor contract.ImageStoreInteractor) contract.ImageInteractor {
 	return &Interactor{
-		db: db,
+		imageStoreInteractor: imageStoreInteractor,
 	}
 }
 
+func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageRequest) (dto.DownloadImageResponse, error) {
+	ImageAbsPath := fmt.Sprintf("%s/%s", req.RootStoragePath, req.ImageName)
+	fInfo, err := os.Stat(ImageAbsPath)
+	if err != nil {
+		return dto.DownloadImageResponse{}, fmt.Errorf("404 - %w", err)
+	}
+	if fInfo.Name() != req.ImageName {
+		return dto.DownloadImageResponse{}, fmt.Errorf("404 - failed to locate %s file", req.ImageName)
+	}
+	err = i.imageStoreInteractor.DoesExit(ctx, req.ImageName)
+	if err != nil {
+		return dto.DownloadImageResponse{}, err
+	}
+	return dto.DownloadImageResponse{ImageAbsPath: ImageAbsPath}, nil
+}
+
 func (i *Interactor) List(ctx context.Context, req dto.ListImageRequest) (dto.ListImageResponse, error) {
-	modelImages, err := i.db.List(ctx)
+	modelImages, err := i.imageStoreInteractor.List(ctx)
 	if err != nil {
 		return dto.ListImageResponse{}, err
 	}
@@ -67,11 +83,11 @@ func (i *Interactor) DownloadFromURL(ctx context.Context, req dto.DownloadImageF
 	}
 	image := model.Image{
 		OriginalURL:   req.URLPath,
-		LocalName:     f.Name(),
+		LocalName:     fileName,
 		FileExtension: fileExt,
 		FileSize:      fileSize,
 	}
-	err = i.db.Create(ctx, image)
+	err = i.imageStoreInteractor.Create(ctx, image)
 	if err != nil {
 		return dto.DownloadImageFromURLResponse{}, err
 	}

@@ -1,6 +1,8 @@
 package dto
 
-import "github.com/MasoudHeydari/Exercise_1/Task2_imagy/domain"
+import (
+	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/domain"
+)
 
 type DownloadImageFromURLRequest struct {
 	URLPath   string
@@ -19,7 +21,10 @@ type ListImageResponse struct {
 }
 
 type DownloadImageRequest struct {
-	ImageName string
+	RootStoragePath string
+	ImageName       string
 }
 
-type DownloadImageResponse struct{}
+type DownloadImageResponse struct {
+	ImageAbsPath string
+}

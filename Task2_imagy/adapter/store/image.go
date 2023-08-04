@@ -2,9 +2,12 @@ package store
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/adapter/store/model"
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/contract"
+	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/ent"
+	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/ent/image"
 )
 
 type Interactor struct {
@@ -48,4 +51,20 @@ func (i *Interactor) List(ctx context.Context) ([]model.Image, error) {
 		modelImages = append(modelImages, modelImg)
 	}
 	return modelImages, nil
+}
+
+func (i *Interactor) DoesExit(ctx context.Context, imageName string) error {
+	doesExits, err := i.db.Client.Image.Query().Where(image.LocalNameEQ(imageName)).Exist(ctx)
+	if err != nil {
+		if ent.IsNotFound(err) {
+			// image not exits in DB - 404 Not Found error code
+			return fmt.Errorf("404 - %w", err)
+		}
+		// server faced with an internal error - 500 internal server error
+		return fmt.Errorf("500 - %w", err)
+	}
+	if !doesExits {
+		return fmt.Errorf("404 - %s not exits in database", imageName)
+	}
+	return nil
 }

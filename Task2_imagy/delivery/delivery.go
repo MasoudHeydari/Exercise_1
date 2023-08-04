@@ -35,5 +35,5 @@ func (d *Delivery) Start(conf config.Config) error {
 func (d *Delivery) setupRoute(e *echo.Echo) {
 	apiV1 := e.Group("api/v1")
 	apiV1.GET("/images", v1.ListImagesHandler(d.imageStore))
-	apiV1.POST("/images/:image_name", v1.DownloadImageHandler(d.imageStore))
+	apiV1.POST("/images", v1.DownloadImageHandler(d.imageStore))
 }
