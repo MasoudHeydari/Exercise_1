@@ -7,7 +7,7 @@ import (
 )
 
 type ImageStoreInteractor interface {
-	Create(ctx context.Context, image model.Image) error
+	Create(ctx context.Context, image model.Image) (model.Image, error)
 	List(ctx context.Context) ([]model.Image, error)
-	DoesExit(ctx context.Context, imageName string) error
+	DoesExit(ctx context.Context, imageName string) (model.Image, error)
 }
