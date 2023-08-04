@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 )
 
+var conf Config
+
 type Config struct {
 	HttpAddress           string `json:"http_address"`
 	Port                  string `json:"port"`
@@ -19,6 +21,10 @@ type Config struct {
 	RootDownloadPath      string `json:"root_download_path"`
 	UserContentUploadPath string `json:"user_content_upload_path"`
 	UrlsPath              string `json:"urls_path"`
+}
+
+func SetConfig(config Config) {
+	conf = config
 }
 
 func Load(confPath string) (Config, error) {

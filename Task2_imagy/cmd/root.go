@@ -35,6 +35,7 @@ func initConfig() {
 	if err != nil {
 		log.Fatal("Failed to load Imagy's config ", "error: ", err)
 	}
+	config.SetConfig(imagyConfig)
 }
 
 func initImagy() {
