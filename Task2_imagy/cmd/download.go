@@ -38,7 +38,7 @@ func download() {
 	iStore := store.NewImageStoreInteractor(db)
 	img := image.New(iStore)
 	for i, u := range urls {
-		req := dto.DownloadImageRequest{
+		req := dto.DownloadImageFromURLRequest{
 			URLPath:   u,
 			LocalName: generateImageName(i),
 			DstPath:   imagyConfig.RootDownloadPath,

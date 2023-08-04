@@ -38,32 +38,32 @@ func (i *Interactor) List(ctx context.Context, req dto.ListImageRequest) (dto.Li
 	}, nil
 }
 
-func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageRequest) (dto.DownloadImageResponse, error) {
+func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageFromURLRequest) (dto.DownloadImageFromURLResponse, error) {
 	res, err := http.Get(req.URLPath)
 	if err != nil {
-		return dto.DownloadImageResponse{}, err
+		return dto.DownloadImageFromURLResponse{}, err
 	}
 	defer res.Body.Close()
 	statusCode := res.StatusCode
 	if statusCode != http.StatusOK {
-		return dto.DownloadImageResponse{}, fmt.Errorf("failed to downlaod image from %s url, status code: %d", req.URLPath, statusCode)
+		return dto.DownloadImageFromURLResponse{}, fmt.Errorf("failed to downlaod image from %s url, status code: %d", req.URLPath, statusCode)
 	}
 	contentType := res.Header.Get("Content-Type")
 	if err = checkResponseContentType(contentType); err != nil {
-		return dto.DownloadImageResponse{}, err
+		return dto.DownloadImageFromURLResponse{}, err
 	}
 	fileExt, err := extractFileExtension(contentType)
 	if err != nil {
-		return dto.DownloadImageResponse{}, err
+		return dto.DownloadImageFromURLResponse{}, err
 	}
 	fileName := fmt.Sprintf("%s.%s", req.LocalName, fileExt)
 	f, err := os.Create(filepath.Join(req.DstPath, fileName))
 	if err != nil {
-		return dto.DownloadImageResponse{}, err
+		return dto.DownloadImageFromURLResponse{}, err
 	}
 	fileSize, err := io.Copy(f, res.Body)
 	if err != nil {
-		return dto.DownloadImageResponse{}, err
+		return dto.DownloadImageFromURLResponse{}, err
 	}
 	image := model.Image{
 		OriginalURL:   req.URLPath,
@@ -73,9 +73,9 @@ func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageRequest)
 	}
 	err = i.db.Create(ctx, image)
 	if err != nil {
-		return dto.DownloadImageResponse{}, err
+		return dto.DownloadImageFromURLResponse{}, err
 	}
-	return dto.DownloadImageResponse{ImageName: fileName}, nil
+	return dto.DownloadImageFromURLResponse{ImageName: fileName}, nil
 }
 
 func checkResponseContentType(contentType string) error {

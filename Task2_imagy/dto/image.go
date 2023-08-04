@@ -2,13 +2,13 @@ package dto
 
 import "github.com/MasoudHeydari/Exercise_1/Task2_imagy/domain"
 
-type DownloadImageRequest struct {
+type DownloadImageFromURLRequest struct {
 	URLPath   string
 	LocalName string
 	DstPath   string
 }
 
-type DownloadImageResponse struct {
+type DownloadImageFromURLResponse struct {
 	ImageName string
 }
 
