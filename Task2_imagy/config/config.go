@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -19,6 +20,7 @@ type Config struct {
 	DbPort                string `json:"db_port"`
 	DbSslMode             string `json:"db_ssl_mode"`
 	RootDownloadPath      string `json:"root_download_path"`
+	MaxImageSizeInBytes   int64  `json:"max_image_size_in_bytes"`
 	UserContentUploadPath string `json:"user_content_upload_path"`
 	UrlsPath              string `json:"urls_path"`
 }
@@ -41,6 +43,19 @@ func Load(confPath string) (Config, error) {
 	return *conf, nil
 }
 
+func GetServerAddressAndPort() string {
+	fmt.Println(conf)
+	return fmt.Sprintf("%s:%s", conf.HttpAddress, conf.Port)
+}
+
 func GetRootDownloadPath() string {
 	return conf.RootDownloadPath
+}
+
+func GetUserContentUploadPath() string {
+	return conf.UserContentUploadPath
+}
+
+func GetMaxImageSizeInBytes() int64 {
+	return conf.MaxImageSizeInBytes
 }
