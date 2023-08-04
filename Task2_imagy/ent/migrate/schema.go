@@ -12,7 +12,7 @@ var (
 	ImagesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
 		{Name: "original_url", Type: field.TypeString},
-		{Name: "local_name", Type: field.TypeString},
+		{Name: "local_name", Type: field.TypeString, Unique: true},
 		{Name: "file_extension", Type: field.TypeString},
 		{Name: "file_size", Type: field.TypeInt64},
 		{Name: "download_date", Type: field.TypeTime},

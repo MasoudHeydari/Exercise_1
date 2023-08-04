@@ -17,7 +17,7 @@ func (Image) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id").Unique().Immutable(),
 		field.String("original_url").NotEmpty(),
-		field.String("local_name").NotEmpty(),
+		field.String("local_name").NotEmpty().Unique(),
 		field.String("file_extension").NotEmpty(),
 		field.Int64("file_size"),
 		field.Time("download_date").Default(time.Now),
