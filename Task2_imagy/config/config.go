@@ -40,3 +40,7 @@ func Load(confPath string) (Config, error) {
 	}
 	return *conf, nil
 }
+
+func GetRootDownloadPath() string {
+	return conf.RootDownloadPath
+}
