@@ -12,6 +12,5 @@
   "db_pass": "imagy_pass",
   "db_name": "imagy",
   "db_address": "imagy_db:5432",
-  "db_port": "5432",
   "db_ssl_mode": "sslmode=disable"
 }
