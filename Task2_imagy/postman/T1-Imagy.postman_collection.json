@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "2750af3f-3f80-4483-a19c-e400992fce8f",
+		"name": "T1-Imagy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3173945"
+	},
+	"item": [
+		{
+			"name": "List Images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Image",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_name\": \"image 4 - 2023-08-04 19-04-55.webp\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/images/image 3 - 2023-08-04 21-44-53.jpeg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"images",
+						"image 3 - 2023-08-04 21-44-53.jpeg"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Images",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/masoud/Desktop/dev/wonderful-flower_2560x1600_xtrafondos.com.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"images"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
