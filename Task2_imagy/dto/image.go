@@ -1,6 +1,8 @@
 package dto
 
 import (
+	"mime/multipart"
+
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/domain"
 )
 
@@ -27,4 +29,12 @@ type DownloadImageRequest struct {
 
 type DownloadImageResponse struct {
 	ImageAbsPath string
+}
+
+type UploadImageRequest struct {
+	ImageFile *multipart.FileHeader
+}
+
+type UploadImageResponse struct {
+	Image domain.Image
 }
