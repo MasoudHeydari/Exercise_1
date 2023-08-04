@@ -37,7 +37,7 @@ func DownloadImageHandler(imageStore contract.ImageStoreInteractor) echo.Handler
 		res, err := image.New(imageStore).Download(ctx, req)
 		if err != nil {
 			errMsg := err.Error()
-			log.Error("ListImage - failed to fetch all images - error ", errMsg)
+			log.Error("DownloadImage - failed to fetch all images - error ", errMsg)
 			statusCode := http.StatusInternalServerError
 			if strings.Contains(errMsg, "404") {
 				statusCode = http.StatusNotFound
