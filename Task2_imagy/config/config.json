@@ -5,6 +5,7 @@
   "urls_path": "Images.txt",
   "user_content_upload_path": "storage/images/user-content",
   "root_download_path": "storage/images",
+  "max_image_size_in_bytes": 2097152,
 
   "db_schema": "postgres",
   "db_username": "imagy_user",
