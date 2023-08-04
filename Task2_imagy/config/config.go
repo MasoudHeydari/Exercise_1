@@ -17,7 +17,6 @@ type Config struct {
 	DbPassword            string `json:"db_pass"`
 	DbName                string `json:"db_name"`
 	DbAddress             string `json:"db_address"`
-	DbPort                string `json:"db_port"`
 	DbSslMode             string `json:"db_ssl_mode"`
 	RootDownloadPath      string `json:"root_download_path"`
 	MaxImageSizeInBytes   int64  `json:"max_image_size_in_bytes"`

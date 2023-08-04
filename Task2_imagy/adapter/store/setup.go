@@ -18,7 +18,7 @@ func New(config config.Config) *Database {
 	u := url.URL{
 		Scheme:   config.DbSchema,
 		User:     url.UserPassword(config.DbUsername, config.DbPassword),
-		Host:     config.HttpAddress,
+		Host:     config.DbAddress,
 		Path:     config.DbName,
 		RawQuery: config.DbSslMode,
 	}

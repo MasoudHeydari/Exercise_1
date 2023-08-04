@@ -1,5 +1,5 @@
 {
-  "http_address": "127.0.0.1",
+  "http_address": "imagy",
   "port": "8080",
 
   "urls_path": "Images.txt",
@@ -11,7 +11,7 @@
   "db_username": "imagy_user",
   "db_pass": "imagy_pass",
   "db_name": "imagy",
-  "db_address": "imagy",
+  "db_address": "imagy_db:5432",
   "db_port": "5432",
   "db_ssl_mode": "sslmode=disable"
 }
