@@ -2,6 +2,7 @@ package calc
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -16,6 +17,24 @@ type Calculator struct {
 // New creates a Calculator
 func New(scn *bufio.Scanner) Calculator {
 	return Calculator{operands: []string{}, result: 0, scn: scn}
+}
+
+// StarCalculation starts the calculator and reads user input from console
+// then prints the total sum in console if there is no syntax error.
+func (c *Calculator) StarCalculation() {
+	fmt.Println("Enter Calculation Lines:")
+
+	if c.scn.Scan() {
+		calculationLines := c.scn.Text()
+		n, err := strconv.Atoi(calculationLines)
+		if err != nil {
+			log.Fatal(err)
+		}
+		lines := c.readAllCalcLines(n, []string{})
+		c.operands = rmAllDelimiterSigns(lines)
+		c.sum()
+		fmt.Println("result is: ", c.result)
+	}
 }
 
 // sum iterates over Calculator.operands and convert each operand to integer
