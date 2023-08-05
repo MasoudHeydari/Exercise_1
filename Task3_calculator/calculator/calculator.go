@@ -16,6 +16,18 @@ func New(scn *bufio.Scanner) Calculator {
 	return Calculator{operands: []string{}, result: 0, scn: scn}
 }
 
+// readAllCalcLines reads all calculation lines from console.
+func (c *Calculator) readAllCalcLines(n int, s []string) []string {
+	if n == 0 {
+		return s
+	}
+	if c.scn.Scan() {
+		l := c.scn.Text()
+		s = append(s, l)
+	}
+	return c.readAllCalcLines(n-1, s)
+}
+
 // rmAllDelimiterSigns removes all delimiter signs from calculation lines.
 func rmAllDelimiterSigns(strs []string) []string {
 	return rmEmpty(
