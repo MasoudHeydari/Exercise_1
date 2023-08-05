@@ -76,7 +76,7 @@ func rmAllDelimiterSigns(strs []string) []string {
 	)
 }
 
-// rmEmpty remove empty strings from input fields slice.
+// rmEmpty removes empty strings from input fields slice.
 func rmEmpty(strs, fields []string) []string {
 	if len(strs) == 0 {
 		return fields
@@ -87,7 +87,7 @@ func rmEmpty(strs, fields []string) []string {
 	return rmEmpty(strs[1:], fields)
 }
 
-// rmPlus remove plus separator from calculation lines.
+// rmPlus removes plus separator from calculation lines.
 func rmPlus(strs, fields []string) []string {
 	if len(strs) == 0 {
 		return fields
@@ -99,7 +99,7 @@ func rmPlus(strs, fields []string) []string {
 	return rmPlus(strs[1:], fields)
 }
 
-// rmComma remove comma separator from calculation lines.
+// rmComma removes comma separator from calculation lines.
 func rmComma(strs, fields []string) []string {
 	if len(strs) == 0 {
 		return fields
@@ -111,7 +111,7 @@ func rmComma(strs, fields []string) []string {
 	return rmComma(strs[1:], fields)
 }
 
-// rmSpaces remove space separator from calculation lines.
+// rmSpaces removes space separator from calculation lines.
 func rmSpaces(strs, fields []string) []string {
 	if len(strs) == 0 {
 		return fields
