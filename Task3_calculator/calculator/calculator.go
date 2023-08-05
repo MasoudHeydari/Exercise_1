@@ -16,6 +16,17 @@ func New(scn *bufio.Scanner) Calculator {
 	return Calculator{operands: []string{}, result: 0, scn: scn}
 }
 
+// rmEmpty remove empty strings from input fields slice.
+func rmEmpty(strs, fields []string) []string {
+	if len(strs) == 0 {
+		return fields
+	}
+	if strs[0] != "" {
+		fields = append(fields, strs[0])
+	}
+	return rmEmpty(strs[1:], fields)
+}
+
 // rmPlus remove plus separator from calculation lines.
 func rmPlus(strs, fields []string) []string {
 	if len(strs) == 0 {
