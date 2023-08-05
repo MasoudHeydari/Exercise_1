@@ -1,7 +1,6 @@
 # Task3 - Calculator
 A simple CLI calculator written in `Golang`.
 
----
 ## How to Run?
 To run the `Calculator` run below command:
 ```bash
@@ -32,6 +31,5 @@ Now give your calculations to `Calculator` line by line.
     ```
     because there is no valid delimiter(plus, comma or space) between `12` and `-15`.
 
----
 ## What was my approach for solving this task? 
 Because it was mentioned in problem statement that it's forbidden to use `for` loop, so I used `Recursion` approach.
