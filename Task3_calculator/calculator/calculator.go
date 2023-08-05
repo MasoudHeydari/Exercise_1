@@ -2,6 +2,8 @@ package calc
 
 import (
 	"bufio"
+	"log"
+	"strconv"
 	"strings"
 )
 
@@ -14,6 +16,21 @@ type Calculator struct {
 // New creates a Calculator
 func New(scn *bufio.Scanner) Calculator {
 	return Calculator{operands: []string{}, result: 0, scn: scn}
+}
+
+// sum iterates over Calculator.operands and convert each operand to integer
+// and return total sum. it will have fatal when faces with first non-integer operand.
+func (c *Calculator) sum() int {
+	if len(c.operands) == 0 {
+		return c.result
+	}
+	n, err := strconv.Atoi(c.operands[0])
+	if err != nil {
+		log.Fatalf("syntax error - '%s' not an integer\n", c.operands[0])
+	}
+	c.result += n
+	c.operands = c.operands[1:]
+	return c.sum()
 }
 
 // readAllCalcLines reads all calculation lines from console.
