@@ -16,6 +16,18 @@ func New(scn *bufio.Scanner) Calculator {
 	return Calculator{operands: []string{}, result: 0, scn: scn}
 }
 
+// rmAllDelimiterSigns removes all delimiter signs from calculation lines.
+func rmAllDelimiterSigns(strs []string) []string {
+	return rmEmpty(
+		rmPlus(
+			rmComma(
+				rmSpaces(strs, []string{}),
+				[]string{}),
+			[]string{}),
+		[]string{},
+	)
+}
+
 // rmEmpty remove empty strings from input fields slice.
 func rmEmpty(strs, fields []string) []string {
 	if len(strs) == 0 {
