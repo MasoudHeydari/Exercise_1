@@ -22,3 +22,8 @@ make compose-up
 
 ## Where is Postman Collections?
 After running docker containers you can import `Imagy's Postman Collections` which is located in `./doc/postman/T1-Imagy.postman_collection.json` and send your requests.
+
+## What frameworks that I used?
+* `Echo` as Http framework.
+* `ENT` as ORM.
+* `Docker` for deployment environment.
