@@ -5,25 +5,13 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/config"
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/contract"
-	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/dto"
 	"github.com/MasoudHeydari/Exercise_1/Task2_imagy/interactor/image"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 )
 
-type DownloadImagePayload struct {
-	ImageName string `param:"image_name"`
-}
-
-func (p *DownloadImagePayload) toDtoDownloadImageRequest() dto.DownloadImageRequest {
-	return dto.DownloadImageRequest{
-		ImageName:       p.ImageName,
-		RootStoragePath: config.GetRootDownloadPath(),
-	}
-}
-
+// DownloadImageHandler gives the ability to user to download an image based on it's name that stored in DB.
 func DownloadImageHandler(imageStore contract.ImageStoreInteractor) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		payload := new(DownloadImagePayload)

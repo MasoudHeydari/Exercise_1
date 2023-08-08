@@ -16,12 +16,14 @@ type Interactor struct {
 	db *Database
 }
 
+// NewImageStoreInteractor creates  new ImageStoreInteractor.
 func NewImageStoreInteractor(db *Database) contract.ImageStoreInteractor {
 	return &Interactor{
 		db: db,
 	}
 }
 
+// Create inserts a new model.Image into image table.
 func (i *Interactor) Create(ctx context.Context, img model.Image) (domainImage model.Image, err error) {
 	// we have to DB queries, execute them in single db transaction
 	tx, err := i.db.Client.BeginTx(ctx, &entSql.TxOptions{})
@@ -68,6 +70,7 @@ func (i *Interactor) Create(ctx context.Context, img model.Image) (domainImage m
 	return
 }
 
+// List returns the list of downloaded images.
 func (i *Interactor) List(ctx context.Context) ([]model.Image, error) {
 	entImages, err := i.db.Client.Image.Query().All(ctx)
 	if err != nil {
@@ -88,6 +91,7 @@ func (i *Interactor) List(ctx context.Context) ([]model.Image, error) {
 	return modelImages, nil
 }
 
+// DoesExit checks if an Image with imageName exits in DB or not.
 func (i *Interactor) DoesExit(ctx context.Context, imageName string) (model.Image, error) {
 	entImg, err := i.db.Client.Image.Query().Where(image.LocalNameEQ(imageName)).First(ctx)
 	if err != nil {
@@ -108,6 +112,7 @@ func (i *Interactor) DoesExit(ctx context.Context, imageName string) (model.Imag
 	}, nil
 }
 
+// entImageToModelImage converts the ent.Image to model.Image.
 func entImageToModelImage(entImg ent.Image) model.Image {
 	return model.Image{
 		ID:            entImg.ID,

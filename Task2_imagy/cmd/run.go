@@ -17,10 +17,12 @@ var runCmd = &cobra.Command{
 	},
 }
 
+// init adds run-command to root-command as a subcommand.
 func init() {
 	rootCmd.AddCommand(runCmd)
 }
 
+// run runs the Imagy web server and users can upload and download images.
 func run() {
 	fmt.Println("running Imagy")
 	db := store.New(imagyConfig)

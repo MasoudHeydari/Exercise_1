@@ -11,6 +11,7 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
+// ListImagesHandler returns the list of downloaded images.
 func ListImagesHandler(imageStore contract.ImageStoreInteractor) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx := context.Background()

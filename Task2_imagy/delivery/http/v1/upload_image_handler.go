@@ -12,6 +12,7 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
+// UploadImageHandler gives the ability to user to upload an image to Imagy system.
 func UploadImageHandler(imageStore contract.ImageStoreInteractor) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var response any

@@ -22,12 +22,14 @@ type Interactor struct {
 	imageStoreInteractor contract.ImageStoreInteractor
 }
 
+// New creates new contract.ImageInteractor.
 func New(imageStoreInteractor contract.ImageStoreInteractor) contract.ImageInteractor {
 	return &Interactor{
 		imageStoreInteractor: imageStoreInteractor,
 	}
 }
 
+// Upload inserts a new image to the Imagy storage and DB.
 func (i *Interactor) Upload(ctx context.Context, req dto.UploadImageRequest) (dto.UploadImageResponse, error) {
 	if req.ImageFile == nil {
 		return dto.UploadImageResponse{}, fmt.Errorf("file cannot be nil")
@@ -79,6 +81,7 @@ func (i *Interactor) Upload(ctx context.Context, req dto.UploadImageRequest) (dt
 	return dto.UploadImageResponse{Image: modelImage.ToDomainImage()}, nil
 }
 
+// Download returns the image content to the client if it exits in Imagy.
 func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageRequest) (dto.DownloadImageResponse, error) {
 	str := req.RootStoragePath
 	img, err := i.imageStoreInteractor.DoesExit(ctx, req.ImageName)
@@ -101,6 +104,7 @@ func (i *Interactor) Download(ctx context.Context, req dto.DownloadImageRequest)
 	return dto.DownloadImageResponse{ImageAbsPath: ImageAbsPath}, nil
 }
 
+// List returns the list of stored images in Imagy.
 func (i *Interactor) List(ctx context.Context, req dto.ListImageRequest) (dto.ListImageResponse, error) {
 	modelImages, err := i.imageStoreInteractor.List(ctx)
 	if err != nil {
@@ -112,6 +116,8 @@ func (i *Interactor) List(ctx context.Context, req dto.ListImageRequest) (dto.Li
 	}, nil
 }
 
+// DownloadFromURL makes a GET request to the input URL and if the response code is 200 OK,
+// stores the image in storage and insert a new row in DB.
 func (i *Interactor) DownloadFromURL(ctx context.Context, req dto.DownloadImageFromURLRequest) (dto.DownloadImageFromURLResponse, error) {
 	res, err := http.Get(req.URLPath)
 	if err != nil {
@@ -152,6 +158,7 @@ func (i *Interactor) DownloadFromURL(ctx context.Context, req dto.DownloadImageF
 	return dto.DownloadImageFromURLResponse{ImageName: fileName}, nil
 }
 
+// checkContentType checks request content-type.
 func checkContentType(contentType string) error {
 	if len(contentType) == 0 {
 		return fmt.Errorf("request's content-type cannot be ampty")
@@ -162,6 +169,7 @@ func checkContentType(contentType string) error {
 	return nil
 }
 
+// extractFileExtension extract the file's extension from request's header.
 func extractFileExtension(s string) (string, error) {
 	i := strings.Split(s, "/")
 	if len(i) <= 1 {
@@ -170,6 +178,7 @@ func extractFileExtension(s string) (string, error) {
 	return i[1], nil
 }
 
+// convertModelImagesToDomainImages converts the model.Image to domain.Image.
 func convertModelImagesToDomainImages(modelImages []model.Image) []domain.Image {
 	domainImages := make([]domain.Image, 0)
 	for _, modelImage := range modelImages {

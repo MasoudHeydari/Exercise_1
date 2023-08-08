@@ -28,6 +28,7 @@ func SetConfig(config Config) {
 	conf = config
 }
 
+// Load loads the config from config.json file and creates a new config instance.
 func Load(confPath string) (Config, error) {
 	confPath = filepath.Clean(confPath)
 	content, err := os.ReadFile(confPath)

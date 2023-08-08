@@ -14,6 +14,8 @@ type Database struct {
 	Client *ent.Client
 }
 
+// New establish a new connection to database and returns it.
+// also it creates the schema in the DB. it will fatal if any error occurs.
 func New(config config.Config) *Database {
 	u := url.URL{
 		Scheme:   config.DbSchema,

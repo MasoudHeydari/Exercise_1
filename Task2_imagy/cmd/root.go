@@ -23,12 +23,15 @@ func Exec() {
 	cobra.CheckErr(rootCmd.Execute())
 }
 
+// init initialises the Imagy.
+// creates the storage dirs and loads the config file.
 func init() {
 	cobra.OnInitialize(initConfig)
 	cobra.OnInitialize(initImagy)
 	rootCmd.PersistentFlags().StringVar(&confPath, "config", "config/config.json", "config file")
 }
 
+// initConfig loads the config from config.json at startup.
 func initConfig() {
 	var err error
 	imagyConfig, err = config.Load(confPath)

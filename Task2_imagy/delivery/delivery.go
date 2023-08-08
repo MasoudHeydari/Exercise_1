@@ -15,10 +15,12 @@ type Delivery struct {
 	imageStore contract.ImageStoreInteractor
 }
 
+// New creates new Delivery.
 func New(imageStore contract.ImageStoreInteractor) Delivery {
 	return Delivery{imageStore: imageStore}
 }
 
+// Start initialises the Echo and starts a new web server.
 func (d *Delivery) Start(conf config.Config) error {
 	e := echo.New()
 	e.Use(middleware.Logger())
@@ -32,6 +34,7 @@ func (d *Delivery) Start(conf config.Config) error {
 	return e.Start(imagyHttpAddress)
 }
 
+// setupRoute initialises the accepted routes for Imagy.
 func (d *Delivery) setupRoute(e *echo.Echo) {
 	apiV1 := e.Group("api/v1")
 	apiV1.GET("/images", v1.ListImagesHandler(d.imageStore))
